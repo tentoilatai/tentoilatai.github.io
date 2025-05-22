@@ -1,61 +1,894 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tai Tran Viet</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="mediaqueries.css">
-  <link rel="icon" type="image/x-icon" href="assets/profile-pic.jpg">
+  <!-- Import Google Fonts - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="https://www.gstatic.com/devrel-devsite/prod/v6dc4611c4232bd02b2b914c4948f523846f90835f230654af18f87f75fe9f73c/web/images/touchicon-180.png">
+  <link rel="shortcut icon" href="https://www.gstatic.com/devrel-devsite/prod/v6dc4611c4232bd02b2b914c4948f523846f90835f230654af18f87f75fe9f73c/web/images/favicon.png">  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Loading Animation */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #007bff, #0056b3, #004085);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 4s ease-in-out forwards;
+    }
+
+    .loader-content {
+      text-align: center;
+      color: white;
+    }
+
+    .loader h2 {
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 800;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.02em;
+      margin: 0;
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInScaleToHeader 4s ease-out forwards;
+      opacity: 0;
+      transform: scale(0.5);
+    }
+
+    @keyframes fadeInScaleToHeader {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      25% {
+        opacity: 0.7;
+        transform: scale(1.2);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      75% {
+        opacity: 1;
+        transform: scale(0.8) translateY(-20px);
+      }
+
+      100% {
+        opacity: 0.3;
+        transform: scale(0.3) translateY(-200px);
+      }
+    }
+
+    @keyframes fadeOut {
+
+      0%,
+      75% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* Page Sections */
+    .page-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Page 1 */
+    .page-1 {
+      background: linear-gradient(135deg, #007bff 0%, #0056b3 50%, #004085 100%);
+      color: white;
+      text-align: center;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 50px;
+    }
+
+    .page-header {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      animation: fadeInDown 1s ease-out 3.5s both;
+    }
+
+    .page-header h2 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-content {
+      z-index: 2;
+      animation: fadeInUp 1s ease-out 3.5s both;
+      margin: auto;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      animation: textGlow 3s ease-in-out infinite alternate;
+    }
+
+    .hero-content p {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.01em;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+
+    .time-display {
+      font-size: clamp(1rem, 2.5vw, 1.4rem) !important;
+      font-weight: 500 !important;
+      color: rgba(255, 255, 255, 0.8) !important;
+      margin-bottom: 30px !important;
+      font-family: 'Inter', monospace !important;
+      letter-spacing: 0.05em !important;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+
+    .scroll-arrow {
+      width: 30px;
+      height: 30px;
+      fill: white;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .scroll-arrow:hover {
+      opacity: 1;
+    }
+
+    /* Floating Elements */
+    .floating-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .floating-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .circle-1 {
+      width: 80px;
+      height: 80px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .circle-2 {
+      width: 120px;
+      height: 120px;
+      top: 60%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .circle-3 {
+      width: 60px;
+      height: 60px;
+      top: 80%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    /* Page 2 */
+    .page-2 {
+      background: linear-gradient(45deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #333;
+    }
+
+    .contact-container {
+      max-width: 800px;
+      width: 90%;
+      text-align: center;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .contact-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.02em;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .contact-grid {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 50px;
+      flex-wrap: nowrap;
+      max-width: 100%;
+      overflow-x: auto;
+      padding: 0 20px;
+    }
+
+    .contact-card {
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 123, 255, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      width: 180px;
+      height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 123, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .contact-card:hover::before {
+      left: 100%;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 123, 255, 0.2);
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 10px;
+      padding: 10px;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .contact-card h3 {
+      font-size: clamp(0.8rem, 2.5vw, 1rem);
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.01em;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .contact-card p {
+      color: #666;
+      font-size: clamp(0.7rem, 2vw, 0.85rem);
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+      word-break: break-all;
+      line-height: 1.2;
+    }
+
+    .contact-card a {
+      color: #007bff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-card a:hover {
+      color: #0056b3;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transition: all 0.5s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .social-link:hover::before {
+      width: 100%;
+      height: 100%;
+    }
+
+    .social-link:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .social-link svg {
+      width: 30px;
+      height: 30px;
+      fill: white;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes textGlow {
+      from {
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      to {
+        text-shadow: 0 4px 30px rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      40% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+
+      60% {
+        transform: translateX(-50%) translateY(-5px);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+      }
+    }
+
+    /* Scroll Effects */
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+    }
+
+    .scroll-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Scroll to top button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-to-top:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 123, 255, 0.6);
+    }
+
+    .scroll-to-top svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+      transform: rotate(180deg);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .page-header h2 {
+        font-size: 1.8rem;
+        top: 20px;
+      }
+
+      .hero-content {
+        margin: auto;
+      }
+
+      .contact-grid {
+        gap: 10px;
+        padding: 0 10px;
+      }
+
+      .contact-card {
+        width: 160px;
+        height: 140px;
+        padding: 12px;
+      }
+
+      .social-links {
+        gap: 15px;
+      }
+
+      .social-link {
+        width: 50px;
+        height: 50px;
+      }
+
+      .social-link svg {
+        width: 25px;
+        height: 25px;
+      }
+
+      .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-header h2 {
+        font-size: 1.5rem;
+        top: 15px;
+      }
+
+      .hero-content {
+        margin: auto;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .contact-title {
+        font-size: 2rem;
+      }
+
+      .contact-card {
+        width: 140px;
+        height: 120px;
+        padding: 10px;
+      }
+
+      .contact-grid {
+        gap: 8px;
+        padding: 0 5px;
+      }
+
+      .contact-icon {
+        width: 35px;
+        height: 35px;
+        margin-bottom: 8px;
+      }
+
+      .contact-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <nav id="desktop-nav">
-    <a href="#" class="logo-link">
-      <div class="logo">KAIZ</div>
-    </a>
-  </nav>
-  
-  <nav id="hamburger-nav">
-    <a href="#" class="logo-link">
-      <div class="logo">KAIZ</div>
-    </a>
-  </nav>  
+  <!-- Loading Screen -->
+  <div class="loader">
+    <div class="loader-content">
+      <h2>KAIZ</h2>
+    </div>
+  </div>
 
-  <section id="profile">
-    <div class="section__text">
-      <p class="section__text__p1">Hello, I'm</p>
-      <h1 class="title">Kaiz Tai Tran</h1>
-      <p class="section__text__p1">I'm an</p>
-      <p class="section__text__p2">Adventure</p>
-      <a href="#contact">
-        <img src="./assets/arrow.webp" alt="Arrow Icon" width="50" height="50" class="hover-effect">
-      </a>
+  <!-- Page 1 -->
+  <section class="page-section page-1" id="page1">
+    <div class="page-header">
+      <h2>KAIZ</h2>
+    </div>
+
+    <div class="floating-elements">
+      <div class="floating-circle circle-1"></div>
+      <div class="floating-circle circle-2"></div>
+      <div class="floating-circle circle-3"></div>
+    </div>
+
+    <div class="hero-content">
+      <h1>Tai Tran Viet</h1>
+      <p id="japanese-greeting">おはようございます</p>
+      <p id="gmt-time" class="time-display">Loading time...</p>
+    </div>
+
+    <div class="scroll-indicator" onclick="scrollToPage2()">
+      <svg class="scroll-arrow" viewBox="0 0 24 24">
+        <path d="M7.41 8.84L12 13.42l4.59-4.58L18 10.25l-6 6-6-6z" />
+      </svg>
     </div>
   </section>
 
-  <section id="contact">
-    <p class="section__text__p1">Get in Touch</p>
-    <h1 class="title">Contact Me</h1>
+  <!-- Scroll to top button -->
+  <div class="scroll-to-top" onclick="scrollToTop()">
+    <svg viewBox="0 0 24 24">
+      <path d="M7.41 8.84L12 13.42l4.59-4.58L18 10.25l-6 6-6-6z" />
+    </svg>
+  </div>
 
-    <div class="contact-info-upper-container">
-      <div class="contact-info-container">
-        <a href="mailto:iam@kaiz.vn">
-        <div class="icon contact-icon email-icon">
-          <?xml version="1.0" ?><svg height="40px" version="1.1" viewBox="0 0 60 60" width="40px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><defs/><g fill="none" fill-rule="evenodd" id="black" stroke="none" stroke-width="1"><g id="mail"><path d="M30,60 C46.5685433,60 60,46.5685433 60,30 C60,13.4314567 46.5685433,0 30,0 C13.4314567,0 0,13.4314567 0,30 C0,46.5685433 13.4314567,60 30,60 Z" fill="#000000"/><path d="M30,33.4615385 L47.3076923,18.4615385 L12.6923077,18.4615385 L30,33.4615385 Z M25.3251765,31.8010536 L30,35.6382399 L34.6015813,31.8010536 L47.3076923,42.6923077 L12.6923077,42.6923077 L25.3251765,31.8010536 Z M11.5384615,41.5384615 L11.5384615,19.6153846 L24.2307692,30.5769231 L11.5384615,41.5384615 Z M48.4615385,41.5384615 L48.4615385,19.6153846 L35.7692308,30.5769231 L48.4615385,41.5384615 Z" fill="#FFFFFF"/></g></g></svg>
+
+  <!-- Page 2 -->
+  <section class="page-section page-2" id="page2">
+    <div class="contact-container scroll-fade">
+      <h2 class="contact-title">Contact</h2>
+
+      <a href="mailto:iam@kaiz.vn" style="text-decoration: none;">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                    </div>
+                    <h3>Email</h3>
+                    <p>iam@kaiz.vn</p>
+                </div> </a>
+
+                <a href="tel:+84123456789" style="text-decoration: none;">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                    </div>
+                    <h3>Mobile</h3>
+                    <p>+84 362 94 6262</p>
+                </div> </a>
+
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+          </svg>
         </div>
-        <a href="mailto:iam@kaiz.vn">
-        <p><a href="mailto:iam@kaiz.vn">iam@kaiz.vn</a></p>
+        <h3>
+          <Address></Address>
+        </h3>
+        <p>Viet Nam</p>
       </div>
-    </div>    
+    </div>
+
+    <div class="social-links">
+      <a href="https://facebook.com/tentoilatai" class="social-link" title="Facebook">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg>
+      </a>
+
+      <a href="https://Instagram.com/tentoilatai" class="social-link" title="Instagram">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+        </svg>
+      </a>
+
+      <a href="https://LinkedIn.com/in/tentoilatai" class="social-link" title="LinkedIn">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+      </a>
+
+      <a href="https://x.com/tentoilatai" class="social-link" title="Twitter">
+        <svg viewBox="0 0 24 24">
+          <path d="M18.9 1.15h3.68l-8.04 9.2L24 22.85h-7.38l-5.79-7.57-6.63 7.57H1.52l8.59-9.83L0 1.15h7.57l5.24 6.94 6.09-6.94zm-1.28 19.7h2.04L6.83 3.15H4.67l12.94 17.7z"/>
+        </svg>
+      </a>
+
+      <a href="https://github.com/tentoilatai" class="social-link" title="GitHub">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+        </svg>
+      </a>
+    </div>
+    </div>
   </section>
 
-  <footer>
-    <p>Copyright &#169; <span id="copyright-year"></span> Tai Tran Viet. All Rights Reserved.</p>
-  </footer>
+  <script>
+    // Function to set Japanese greeting based on time of day
+    function setJapaneseGreeting() {
+      const now = new Date();
+      // Convert to GMT+7 (Vietnam/Thailand timezone)
+      const gmt7Time = new Date(now.getTime() + (7 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
+      const hour = gmt7Time.getHours();
+      const greetingElement = document.getElementById('japanese-greeting');
+      
+      let greeting = '';
+      
+      if (hour >= 5 && hour < 12) {
+        // Morning: 5 AM - 12 PM
+        greeting = 'おはようございます';
+      } else if (hour >= 12 && hour < 18) {
+        // Afternoon: 12 PM - 6 PM
+        greeting = 'こんにちは';
+      } else {
+        // Evening/Night: 6 PM - 5 AM
+        greeting = 'こんばんは';
+      }
+      
+      greetingElement.textContent = greeting;
+    }
 
-  <script src="script.js"></script>
+    // Function to update GMT+7 time display
+    function updateGMT7Time() {
+      const now = new Date();
+      // Convert to GMT+7 timezone
+      const gmt7Time = new Date(now.getTime() + (7 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
+      
+      const timeElement = document.getElementById('gmt-time');
+      
+      // Format time (HH:MM:SS)
+      const hours = gmt7Time.getHours().toString().padStart(2, '0');
+      const minutes = gmt7Time.getMinutes().toString().padStart(2, '0');
+      const seconds = gmt7Time.getSeconds().toString().padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds} GMT+7`;
+      
+      // Format date
+      const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      };
+      const dateString = gmt7Time.toLocaleDateString('en-US', options);
+      
+      timeElement.innerHTML = `${timeString}<br><small style="font-size: 0.8em; opacity: 0.7;">${dateString}</small>`;
+    }
+
+    // Update time every second
+    function startClock() {
+      updateGMT7Time();
+      setInterval(updateGMT7Time, 1000);
+    }
+
+    // Set greeting and start clock when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      setJapaneseGreeting();
+      startClock();
+      // Update greeting every minute in case time zone changes
+      setInterval(setJapaneseGreeting, 60000);
+    });
+
+    // Smooth scrolling between pages
+    function scrollToPage2() {
+      document.getElementById('page2').scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+
+    function scrollToTop() {
+      document.getElementById('page1').scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+
+    // Show/hide scroll to top button
+    window.addEventListener('scroll', () => {
+      const scrollToTopBtn = document.querySelector('.scroll-to-top');
+      const scrolled = window.pageYOffset;
+
+      if (scrolled > window.innerHeight / 2) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+
+      // Parallax effect for floating elements
+      const parallax = document.querySelectorAll('.floating-circle');
+      parallax.forEach((circle, index) => {
+        const speed = 0.5 + (index * 0.2);
+        circle.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+      });
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for scroll animations
+    document.addEventListener('DOMContentLoaded', () => {
+      const scrollElements = document.querySelectorAll('.scroll-fade');
+      scrollElements.forEach(el => observer.observe(el));
+    });
+
+    // Add hover effects to contact cards
+    document.querySelectorAll('.contact-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-10px) scale(1.02)';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Add click animation to social links
+    document.querySelectorAll('.social-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        link.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+          link.style.transform = 'scale(1.1)';
+          setTimeout(() => {
+            link.style.transform = 'scale(1)';
+            // Navigate to the actual link after animation
+            window.open(link.href, '_blank');
+          }, 150);
+        }, 100);
+      });
+    });
+
+    // Mouse movement parallax
+    document.addEventListener('mousemove', (e) => {
+      const mouseX = e.clientX / window.innerWidth;
+      const mouseY = e.clientY / window.innerHeight;
+
+      document.querySelectorAll('.floating-circle').forEach((circle, index) => {
+        const speed = (index + 1) * 2;
+        const x = (mouseX - 0.5) * speed;
+        const y = (mouseY - 0.5) * speed;
+        circle.style.transform += ` translate(${x}px, ${y}px)`;
+      });
+    });
+  </script>
 </body>
 
 </html>
