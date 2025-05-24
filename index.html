@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tai Tran Viet</title>
-  <!-- Import Google Fonts - Inter -->
+  <!-- Import Google Fonts - Righteous -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Righteous:wght@400&display=swap" rel="stylesheet">
   <link rel="apple-touch-icon" href="https://www.gstatic.com/devrel-devsite/prod/v6dc4611c4232bd02b2b914c4948f523846f90835f230654af18f87f75fe9f73c/web/images/touchicon-180.png">
   <link rel="shortcut icon" href="https://www.gstatic.com/devrel-devsite/prod/v6dc4611c4232bd02b2b914c4948f523846f90835f230654af18f87f75fe9f73c/web/images/favicon.png">  <style>
     * {
@@ -18,8 +18,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+      font-family: 'Righteous', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       overflow-x: hidden;
       overflow: hidden;
       scroll-behavior: smooth;
@@ -49,8 +48,8 @@
 
     .loader h2 {
       font-size: clamp(4rem, 10vw, 8rem);
-      font-weight: 800;
-      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-family: 'Righteous', sans-serif;
       letter-spacing: -0.02em;
       margin: 0;
       background: linear-gradient(135deg, #ffffff, #f8f9fa);
@@ -136,8 +135,8 @@
 
     .page-header h2 {
       font-size: clamp(1.5rem, 4vw, 2.5rem);
-      font-weight: 700;
-      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-family: 'Righteous', sans-serif;
       letter-spacing: -0.01em;
       margin: 0;
       color: white;
@@ -152,8 +151,8 @@
 
     .hero-content h1 {
       font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 800;
-      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-family: 'Righteous', sans-serif;
       letter-spacing: -0.03em;
       margin-bottom: 20px;
       text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -163,7 +162,7 @@
     .hero-content p {
       font-size: clamp(1.2rem, 3vw, 1.8rem);
       font-weight: 400;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Righteous', sans-serif;
       letter-spacing: -0.01em;
       opacity: 0.9;
       margin-bottom: 15px;
@@ -171,10 +170,10 @@
 
     .time-display {
       font-size: clamp(1rem, 2.5vw, 1.4rem) !important;
-      font-weight: 500 !important;
+      font-weight: 400 !important;
       color: rgba(255, 255, 255, 0.8) !important;
       margin-bottom: 30px !important;
-      font-family: 'Inter', monospace !important;
+      font-family: 'Righteous', monospace !important;
       letter-spacing: 0.05em !important;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
     }
@@ -208,37 +207,297 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floating-shape {
+      position: absolute;
+      animation: float 6s ease-in-out infinite;
+      opacity: 0.6;
     }
 
     .floating-circle {
-      position: absolute;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      animation: float 6s ease-in-out infinite;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     }
 
+    .floating-square {
+      background: linear-gradient(135deg, rgba(0, 123, 255, 0.2), rgba(0, 86, 179, 0.1));
+      transform: rotate(45deg);
+      box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
+    }
+
+    .floating-triangle {
+      width: 0;
+      height: 0;
+      background: transparent;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-bottom: 52px solid rgba(255, 255, 255, 0.1);
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+    }
+
+    .floating-hexagon {
+      width: 60px;
+      height: 34.64px;
+      background: linear-gradient(60deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      position: relative;
+    }
+
+    .floating-hexagon:before,
+    .floating-hexagon:after {
+      content: "";
+      position: absolute;
+      width: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+    }
+
+    .floating-hexagon:before {
+      bottom: 100%;
+      border-bottom: 17.32px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .floating-hexagon:after {
+      top: 100%;
+      border-top: 17.32px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Individual shapes positioning */
     .circle-1 {
       width: 80px;
       height: 80px;
-      top: 20%;
-      left: 10%;
+      top: 15%;
+      left: 8%;
       animation-delay: 0s;
     }
 
     .circle-2 {
       width: 120px;
       height: 120px;
-      top: 60%;
-      right: 15%;
+      top: 65%;
+      right: 12%;
       animation-delay: 2s;
     }
 
     .circle-3 {
       width: 60px;
       height: 60px;
-      top: 80%;
-      left: 20%;
+      top: 85%;
+      left: 18%;
       animation-delay: 4s;
+    }
+
+    .circle-4 {
+      width: 90px;
+      height: 90px;
+      top: 25%;
+      right: 25%;
+      animation-delay: 1s;
+    }
+
+    .circle-5 {
+      width: 70px;
+      height: 70px;
+      top: 45%;
+      left: 5%;
+      animation-delay: 3s;
+    }
+
+    .square-1 {
+      width: 50px;
+      height: 50px;
+      top: 30%;
+      left: 75%;
+      animation-delay: 1.5s;
+    }
+
+    .square-2 {
+      width: 40px;
+      height: 40px;
+      top: 70%;
+      left: 60%;
+      animation-delay: 3.5s;
+    }
+
+    .square-3 {
+      width: 35px;
+      height: 35px;
+      top: 10%;
+      left: 45%;
+      animation-delay: 0.5s;
+    }
+
+    .triangle-1 {
+      top: 20%;
+      right: 8%;
+      animation-delay: 2.5s;
+    }
+
+    .triangle-2 {
+      top: 75%;
+      right: 35%;
+      animation-delay: 4.5s;
+      transform: scale(0.8);
+    }
+
+    .hexagon-1 {
+      top: 40%;
+      right: 5%;
+      animation-delay: 1.8s;
+    }
+
+    .hexagon-2 {
+      top: 12%;
+      left: 25%;
+      animation-delay: 3.2s;
+    }
+
+    /* Particle System */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: particleFloat 8s linear infinite;
+    }
+
+    /* Mouse Follower Elements */
+    .mouse-followers {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .mouse-follower {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      opacity: 0;
+    }
+
+    /* Animated Background Pattern */
+    .animated-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 123, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+      animation: bgPulse 8s ease-in-out infinite;
+    }
+
+    /* Geometric Grid */
+    .geometric-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+      opacity: 0.3;
+    }
+
+    /* Floating Lines */
+    .floating-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .floating-line {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: lineFloat 10s linear infinite;
+    }
+
+    .line-1 {
+      width: 200px;
+      top: 25%;
+      left: -200px;
+      animation-delay: 0s;
+    }
+
+    .line-2 {
+      width: 150px;
+      top: 60%;
+      left: -150px;
+      animation-delay: 4s;
+    }
+
+    .line-3 {
+      width: 180px;
+      top: 80%;
+      left: -180px;
+      animation-delay: 7s;
+    }
+
+    /* Glowing Orbs */
+    .glowing-orbs {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .glowing-orb {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(0, 123, 255, 0.1), transparent);
+      animation: orbPulse 4s ease-in-out infinite;
+      filter: blur(1px);
+    }
+
+    .orb-1 {
+      width: 150px;
+      height: 150px;
+      top: 10%;
+      right: 10%;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 100px;
+      height: 100px;
+      bottom: 20%;
+      left: 15%;
+      animation-delay: 2s;
+    }
+
+    .orb-3 {
+      width: 120px;
+      height: 120px;
+      top: 50%;
+      left: 70%;
+      animation-delay: 1s;
     }
 
     /* Page 2 */
@@ -258,8 +517,8 @@
 
     .contact-title {
       font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 800;
-      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-family: 'Righteous', sans-serif;
       letter-spacing: -0.02em;
       margin-bottom: 50px;
       background: linear-gradient(135deg, #007bff, #0056b3);
@@ -339,8 +598,8 @@
 
     .contact-card h3 {
       font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-family: 'Righteous', sans-serif;
       letter-spacing: -0.01em;
       margin-bottom: 8px;
       color: #333;
@@ -350,7 +609,7 @@
       color: #666;
       font-size: clamp(0.8rem, 2vw, 0.95rem);
       font-weight: 400;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Righteous', sans-serif;
       word-break: break-all;
       line-height: 1.3;
     }
@@ -471,14 +730,126 @@
     }
 
     @keyframes float {
-
-      0%,
-      100% {
+      0%, 100% {
         transform: translateY(0px) rotate(0deg);
       }
-
       50% {
         transform: translateY(-20px) rotate(180deg);
+      }
+    }
+
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(100vh) translateX(0px) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes bgPulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes gridMove {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(50px, 50px);
+      }
+    }
+
+    @keyframes lineFloat {
+      0% {
+        transform: translateX(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(calc(100vw + 200px));
+        opacity: 0;
+      }
+    }
+
+    @keyframes orbPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+      }
+    }
+
+    /* Cursor Trail Effect */
+    .cursor-trail {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .cursor-trail.blue {
+      background: rgba(0, 123, 255, 0.8);
+    }
+
+    /* Mouse Follower Colors */
+    .mouse-follower {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      opacity: 0;
+    }
+
+    .mouse-follower.blue {
+      background: radial-gradient(circle, rgba(0, 123, 255, 0.4), transparent);
+    }
+
+    /* Interactive Ripple Effect */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+      transform: scale(0);
+      animation: rippleEffect 0.6s linear;
+      pointer-events: none;
+    }
+
+    .ripple.blue {
+      background: radial-gradient(circle, rgba(0, 123, 255, 0.4), transparent);
+    }
+
+    @keyframes rippleEffect {
+      to {
+        transform: scale(4);
+        opacity: 0;
       }
     }
 
@@ -743,9 +1114,51 @@
     </div>
 
     <div class="floating-elements">
-      <div class="floating-circle circle-1"></div>
-      <div class="floating-circle circle-2"></div>
-      <div class="floating-circle circle-3"></div>
+      <!-- Animated Background -->
+      <div class="animated-bg"></div>
+      
+      <!-- Geometric Grid -->
+      <div class="geometric-grid"></div>
+      
+      <!-- Floating Circles -->
+      <div class="floating-shape floating-circle circle-1"></div>
+      <div class="floating-shape floating-circle circle-2"></div>
+      <div class="floating-shape floating-circle circle-3"></div>
+      <div class="floating-shape floating-circle circle-4"></div>
+      <div class="floating-shape floating-circle circle-5"></div>
+      
+      <!-- Floating Squares -->
+      <div class="floating-shape floating-square square-1"></div>
+      <div class="floating-shape floating-square square-2"></div>
+      <div class="floating-shape floating-square square-3"></div>
+      
+      <!-- Floating Triangles -->
+      <div class="floating-shape floating-triangle triangle-1"></div>
+      <div class="floating-shape floating-triangle triangle-2"></div>
+      
+      <!-- Floating Hexagons -->
+      <div class="floating-shape floating-hexagon hexagon-1"></div>
+      <div class="floating-shape floating-hexagon hexagon-2"></div>
+      
+      <!-- Floating Lines -->
+      <div class="floating-lines">
+        <div class="floating-line line-1"></div>
+        <div class="floating-line line-2"></div>
+        <div class="floating-line line-3"></div>
+      </div>
+      
+      <!-- Glowing Orbs -->
+      <div class="glowing-orbs">
+        <div class="glowing-orb orb-1"></div>
+        <div class="glowing-orb orb-2"></div>
+        <div class="glowing-orb orb-3"></div>
+      </div>
+      
+      <!-- Particles -->
+      <div class="particles" id="particles"></div>
+      
+      <!-- Mouse Followers -->
+      <div class="mouse-followers" id="mouseFollowers"></div>
     </div>
 
     <div class="hero-content">
@@ -841,6 +1254,12 @@
             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
           </svg>
         </a>
+
+        <a href="https://t.me/tentoilatai" class="social-link" title="Telegram">
+          <svg viewBox="0 0 24 24">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+          </svg>
+        </a>
       </div>
     </div>
   </section>
@@ -906,8 +1325,16 @@
     document.addEventListener('DOMContentLoaded', () => {
       setJapaneseGreeting();
       startClock();
+      initParticles();
+      initMouseFollowers();
+      createCursorTrail();
+      
       // Update greeting every minute in case time zone changes
       setInterval(setJapaneseGreeting, 60000);
+      
+      // Observe elements for scroll animations
+      const scrollElements = document.querySelectorAll('.scroll-fade');
+      scrollElements.forEach(el => observer.observe(el));
     });
 
     // Smooth scrolling between pages
@@ -956,12 +1383,6 @@
       });
     }, observerOptions);
 
-    // Observe elements for scroll animations
-    document.addEventListener('DOMContentLoaded', () => {
-      const scrollElements = document.querySelectorAll('.scroll-fade');
-      scrollElements.forEach(el => observer.observe(el));
-    });
-
     // Add hover effects to contact cards
     document.querySelectorAll('.contact-card').forEach(card => {
       card.addEventListener('mouseenter', () => {
@@ -989,17 +1410,232 @@
       });
     });
 
-    // Mouse movement parallax
-    document.addEventListener('mousemove', (e) => {
-      const mouseX = e.clientX / window.innerWidth;
-      const mouseY = e.clientY / window.innerHeight;
+    // Mouse movement parallax with enhanced effects
+    let mouseX = 0, mouseY = 0;
+    let followers = [];
+    let particles = [];
+    let cursorTrails = [];
 
-      document.querySelectorAll('.floating-circle').forEach((circle, index) => {
+    // Initialize particle system
+    function initParticles() {
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        createParticle(particlesContainer);
+      }
+    }
+
+    function createParticle(container) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 8 + 's';
+      particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+      container.appendChild(particle);
+      
+      // Remove and recreate particle after animation
+      setTimeout(() => {
+        if (particle.parentNode) {
+          particle.parentNode.removeChild(particle);
+          createParticle(container);
+        }
+      }, 12000);
+    }
+
+    // Initialize mouse followers
+    function initMouseFollowers() {
+      const followersContainer = document.getElementById('mouseFollowers');
+      for (let i = 0; i < 8; i++) {
+        const follower = document.createElement('div');
+        follower.className = 'mouse-follower';
+        followersContainer.appendChild(follower);
+        followers.push({
+          element: follower,
+          x: 0,
+          y: 0,
+          delay: i * 50
+        });
+      }
+    }
+
+    // Create cursor trail
+    function createCursorTrail() {
+      for (let i = 0; i < 10; i++) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        document.body.appendChild(trail);
+        cursorTrails.push({
+          element: trail,
+          x: 0,
+          y: 0,
+          life: 0
+        });
+      }
+    }
+
+    // Update cursor trail
+    function updateCursorTrail(x, y) {
+      cursorTrails.forEach((trail, index) => {
+        setTimeout(() => {
+          trail.x = x;
+          trail.y = y;
+          trail.element.style.left = trail.x + 'px';
+          trail.element.style.top = trail.y + 'px';
+          trail.element.style.opacity = (10 - index) / 10;
+        }, index * 30);
+      });
+    }
+
+    // Create ripple effect with color based on current page
+    function createRipple(x, y) {
+      const ripple = document.createElement('div');
+      const currentPage = getCurrentPage();
+      
+      ripple.className = currentPage === 1 ? 'ripple' : 'ripple blue';
+      ripple.style.left = (x - 25) + 'px';
+      ripple.style.top = (y - 25) + 'px';
+      ripple.style.width = '50px';
+      ripple.style.height = '50px';
+      
+      const targetPage = currentPage === 1 ? '.page-1' : '.page-2';
+      document.querySelector(targetPage).appendChild(ripple);
+      
+      setTimeout(() => {
+        if (ripple.parentNode) {
+          ripple.parentNode.removeChild(ripple);
+        }
+      }, 600);
+    }
+
+    // Get current page based on scroll position
+    function getCurrentPage() {
+      const scrolled = window.pageYOffset;
+      return scrolled < window.innerHeight / 2 ? 1 : 2;
+    }
+
+    // Update cursor effects color based on current page
+    function updateCursorColors() {
+      const currentPage = getCurrentPage();
+      const isBlue = currentPage === 2;
+      
+      // Update cursor trails
+      cursorTrails.forEach(trail => {
+        if (isBlue) {
+          trail.element.classList.add('blue');
+        } else {
+          trail.element.classList.remove('blue');
+        }
+      });
+      
+      // Update mouse followers
+      followers.forEach(follower => {
+        if (isBlue) {
+          follower.element.classList.add('blue');
+        } else {
+          follower.element.classList.remove('blue');
+        }
+      });
+    }
+
+    // Enhanced mouse movement handler
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX / window.innerWidth;
+      mouseY = e.clientY / window.innerHeight;
+      
+      // Update cursor trail
+      updateCursorTrail(e.clientX, e.clientY);
+      
+      // Update mouse followers
+      followers.forEach((follower, index) => {
+        setTimeout(() => {
+          const targetX = e.clientX - 10;
+          const targetY = e.clientY - 10;
+          follower.element.style.left = targetX + 'px';
+          follower.element.style.top = targetY + 'px';
+          follower.element.style.opacity = '1';
+          follower.element.style.transform = `scale(${1 - index * 0.1})`;
+        }, follower.delay);
+      });
+
+      // Enhanced parallax for floating elements
+      document.querySelectorAll('.floating-shape').forEach((shape, index) => {
+        const speed = (index + 1) * 3;
+        const x = (mouseX - 0.5) * speed;
+        const y = (mouseY - 0.5) * speed;
+        const rotation = (mouseX - 0.5) * 20;
+        shape.style.transform += ` translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+      });
+
+      // Parallax for glowing orbs
+      document.querySelectorAll('.glowing-orb').forEach((orb, index) => {
         const speed = (index + 1) * 2;
         const x = (mouseX - 0.5) * speed;
         const y = (mouseY - 0.5) * speed;
-        circle.style.transform += ` translate(${x}px, ${y}px)`;
+        orb.style.transform += ` translate(${x}px, ${y}px)`;
       });
+
+      // Dynamic background gradient based on mouse position
+      const page1 = document.querySelector('.page-1');
+      const hue1 = 220 + (mouseX * 40);
+      const hue2 = 200 + (mouseY * 60);
+      page1.style.background = `linear-gradient(135deg, hsl(${hue1}, 100%, 50%) 0%, hsl(${hue2}, 100%, 35%) 50%, hsl(${hue1 - 20}, 100%, 25%) 100%)`;
+    });
+
+    // Click effect with color based on current page
+    document.addEventListener('click', (e) => {
+      createRipple(e.clientX, e.clientY);
+    });
+
+    // Enhanced scroll effects
+    window.addEventListener('scroll', () => {
+      const scrollToTopBtn = document.querySelector('.scroll-to-top');
+      const scrolled = window.pageYOffset;
+
+      if (scrolled > window.innerHeight / 2) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+
+      // Update cursor colors based on current page
+      updateCursorColors();
+
+      // Enhanced parallax effect for floating elements
+      const parallax = document.querySelectorAll('.floating-shape');
+      parallax.forEach((shape, index) => {
+        const speed = 0.5 + (index * 0.1);
+        const yPos = scrolled * speed;
+        const rotation = scrolled * 0.2;
+        shape.style.transform = `translateY(${yPos}px) rotate(${rotation}deg)`;
+      });
+
+      // Parallax for geometric grid
+      const grid = document.querySelector('.geometric-grid');
+      if (grid) {
+        grid.style.transform = `translate(${scrolled * 0.1}px, ${scrolled * 0.1}px)`;
+      }
+
+      // Parallax for animated background
+      const animatedBg = document.querySelector('.animated-bg');
+      if (animatedBg) {
+        animatedBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+      }
+    });
+
+    // Initialize all effects when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      setJapaneseGreeting();
+      startClock();
+      initParticles();
+      initMouseFollowers();
+      createCursorTrail();
+      updateCursorColors(); // Set initial cursor colors
+      
+      // Update greeting every minute
+      setInterval(setJapaneseGreeting, 60000);
+      
+      // Observe elements for scroll animations
+      const scrollElements = document.querySelectorAll('.scroll-fade');
+      scrollElements.forEach(el => observer.observe(el));
     });
   </script>
 </body>
