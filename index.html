@@ -185,18 +185,90 @@
       transform: translateX(-50%);
       animation: bounce 2s infinite;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    .scroll-text {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-family: 'Righteous', sans-serif;
+      text-align: center;
+      margin-bottom: 10px;
+      animation: textPulse 2s ease-in-out infinite;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      letter-spacing: 0.5px;
+    }
+
+    .scroll-arrows {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
     }
 
     .scroll-arrow {
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       fill: white;
-      opacity: 0.7;
-      transition: opacity 0.3s ease;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+      animation: arrowFloat 2s ease-in-out infinite;
     }
 
-    .scroll-arrow:hover {
+    .scroll-arrow:nth-child(1) {
+      animation-delay: 0s;
+      opacity: 0.9;
+      --scale: 1;
+    }
+
+    .scroll-arrow:nth-child(2) {
+      animation-delay: 0.2s;
+      opacity: 0.7;
+      --scale: 0.9;
+    }
+
+    .scroll-arrow:nth-child(3) {
+      animation-delay: 0.4s;
+      opacity: 0.5;
+      --scale: 0.8;
+    }
+
+    .scroll-indicator:hover .scroll-arrow {
       opacity: 1;
+      transform: scale(1.1);
+      fill: #ffffff;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+    }
+
+    .scroll-indicator:hover .scroll-text {
+      color: #ffffff;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Enhanced scroll indicator animations */
+    @keyframes textPulse {
+      0%, 100% {
+        opacity: 0.9;
+        transform: translateY(0);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-2px);
+      }
+    }
+
+    @keyframes arrowFloat {
+      0%, 100% {
+        transform: translateY(0) scale(var(--scale, 1));
+      }
+      50% {
+        transform: translateY(-8px) scale(var(--scale, 1));
+      }
     }
 
     /* Floating Elements */
@@ -1021,6 +1093,20 @@
         width: 45px;
         height: 45px;
       }
+
+      .scroll-indicator {
+        bottom: 25px;
+      }
+
+      .scroll-text {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+
+      .scroll-arrow {
+        width: 30px;
+        height: 30px;
+      }
     }
 
     /* Small mobile devices */
@@ -1095,6 +1181,20 @@
         width: 22px;
         height: 22px;
       }
+
+      .scroll-indicator {
+        bottom: 20px;
+      }
+
+      .scroll-text {
+        font-size: 0.8rem;
+        margin-bottom: 6px;
+      }
+
+      .scroll-arrow {
+        width: 28px;
+        height: 28px;
+      }
     }
   </style>
 </head>
@@ -1168,9 +1268,18 @@
     </div>
 
     <div class="scroll-indicator" onclick="scrollToPage2()">
-      <svg class="scroll-arrow" viewBox="0 0 24 24">
-        <path d="M7.41 8.84L12 13.42l4.59-4.58L18 10.25l-6 6-6-6z" />
-      </svg>
+      <div class="scroll-text">Scroll down for more information</div>
+      <div class="scroll-arrows">
+        <svg class="scroll-arrow" viewBox="0 0 24 24">
+          <path d="M7.41 8.84L12 13.42l4.59-4.58L18 10.25l-6 6-6-6z" />
+        </svg>
+        <svg class="scroll-arrow" viewBox="0 0 24 24">
+          <path d="M7.41 8.84L12 13.42l4.59-4.58L18 10.25l-6 6-6-6z" />
+        </svg>
+        <svg class="scroll-arrow" viewBox="0 0 24 24">
+          <path d="M7.41 8.84L12 13.42l4.59-4.58L18 10.25l-6 6-6-6z" />
+        </svg>
+      </div>
     </div>
   </section>
 
@@ -1623,6 +1732,9 @@
 
     // Initialize all effects when page loads
     document.addEventListener('DOMContentLoaded', () => {
+      // Always scroll to top on page load/reload
+      window.scrollTo(0, 0);
+      
       setJapaneseGreeting();
       startClock();
       initParticles();
@@ -1636,6 +1748,16 @@
       // Observe elements for scroll animations
       const scrollElements = document.querySelectorAll('.scroll-fade');
       scrollElements.forEach(el => observer.observe(el));
+    });
+
+    // Ensure page always starts at top on reload
+    window.addEventListener('beforeunload', () => {
+      window.scrollTo(0, 0);
+    });
+
+    // Additional scroll to top on page show (handles back/forward navigation)
+    window.addEventListener('pageshow', () => {
+      window.scrollTo(0, 0);
     });
   </script>
 </body>
