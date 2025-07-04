@@ -1,0 +1,120 @@
+<div class="min-h-screen py-8 px-4 pt-24">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-12 animate-slide-up">
+      <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-4">Payment Center</h1>
+      <p class="text-xl text-gray-600">Quick and secure QR code payments</p>
+    </div>
+    
+    <!-- Bank Cards Grid -->
+    <div class="grid lg:grid-cols-2 gap-8 mb-12">
+      <div *ngFor="let bank of banks; let i = index" 
+           class="bank-card glass rounded-3xl overflow-hidden hover:scale-105 smooth-transition animate-slide-up"
+           [class]="'stagger-' + (i + 1)">
+        <!-- Bank Header -->
+        <div class="p-8 bg-gradient-to-r" 
+             [ngClass]="{
+               'from-red-500 to-red-700': bank.name === 'HSBC Viet Nam Bank',
+               'from-red-600 to-red-800': bank.name === 'Standard Chartered Bank'
+             }">
+          <div class="flex items-center gap-6">
+            <!-- Bank Logo -->
+            <div class="w-20 h-12 bg-white rounded-2xl p-2 flex items-center justify-center">
+              <img 
+                [src]="bank.name === 'HSBC Viet Nam Bank' ? 
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/HSBC_logo_%282018%29.svg/2560px-HSBC_logo_%282018%29.svg.png' : 
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Standard_Chartered_%282021%29.svg/1200px-Standard_Chartered_%282021%29.svg.png'"
+                [alt]="bank.name + ' logo'"
+                class="w-full h-full object-contain"
+              >
+            </div>
+            <div>
+              <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">{{ bank.name }}</h2>
+              <div class="text-white/90">
+                <p class="text-sm opacity-80">Account Number</p>
+                <p class="text-xl font-semibold">{{ bank.accountNumber }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card Content -->
+        <div class="p-8 space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Account Holder</label>
+            <p class="text-lg font-semibold">{{ bank.accountName }}</p>
+          </div>
+          
+          <div>
+            <label for="amount-{{bank.name}}" class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+            <div class="relative">
+              <input
+                type="number"
+                [(ngModel)]="bank.amount"
+                class="input-glass pr-16"
+                placeholder="Enter amount"
+                [id]="'amount-' + bank.name"
+              >
+              <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                <span class="text-gray-500 font-medium">VND</span>
+              </div>
+            </div>
+          </div>
+          
+          <button
+            (click)="generateQRCode(bank)"
+            class="w-full btn-primary py-4 text-lg font-semibold rounded-2xl ripple"
+            [class.loading]="bank.loading"
+          >
+            {{ bank.loading ? 'Generating...' : 'Generate QR Code' }}
+          </button>
+          
+          <div *ngIf="bank.qrCodeUrl" class="flex flex-col items-center space-y-4 animate-fade-in">
+            <div class="glass rounded-3xl p-6">
+              <img [src]="bank.qrCodeUrl" alt="QR Code" class="w-64 h-64 rounded-2xl">
+            </div>
+            <p class="text-center text-gray-600 font-medium">Scan QR code to make payment</p>
+            <div class="flex space-x-4">
+              <button (click)="downloadQR(bank)" class="btn-secondary px-6 py-2 rounded-xl ripple">
+                Download QR
+              </button>
+              <button (click)="shareQR(bank)" class="btn-secondary px-6 py-2 rounded-xl ripple">
+                Share QR
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Payment Instructions -->
+    <div class="glass rounded-3xl p-8 max-w-4xl mx-auto animate-slide-up stagger-3">
+      <h3 class="text-2xl font-bold gradient-text mb-6 text-center">How to Pay</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="text-center animate-slide-up stagger-4">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center">
+            <span class="text-white font-bold text-xl">1</span>
+          </div>
+          <h4 class="font-semibold mb-2">Enter Amount</h4>
+          <p class="text-gray-600 text-sm">Input the amount you want to transfer</p>
+        </div>
+        
+        <div class="text-center animate-slide-up stagger-5">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center">
+            <span class="text-white font-bold text-xl">2</span>
+          </div>
+          <h4 class="font-semibold mb-2">Generate QR</h4>
+          <p class="text-gray-600 text-sm">Click to generate your payment QR code</p>
+        </div>
+        
+        <div class="text-center animate-slide-up stagger-6">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-red-700 to-red-800 flex items-center justify-center">
+            <span class="text-white font-bold text-xl">3</span>
+          </div>
+          <h4 class="font-semibold mb-2">Scan & Pay</h4>
+          <p class="text-gray-600 text-sm">Use your banking app to scan and pay</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

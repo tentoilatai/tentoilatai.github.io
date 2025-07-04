@@ -1,0 +1,64 @@
+<div class="h-full flex flex-col glass rounded-3xl overflow-hidden hover:scale-105 smooth-transition">
+  <!-- Bank Header -->
+  <div class="p-6 bg-gradient-to-r" [ngClass]="{
+    'from-red-500 to-red-700': bank.name === 'HSBC Viet Nam Bank',
+    'from-blue-500 to-blue-700': bank.name === 'Standard Chartered Bank'
+  }">
+    <div class="flex items-center gap-4">
+      <!-- Bank Logo -->
+      <div class="w-20 h-12 bg-white rounded-2xl p-1 flex items-center justify-center">
+        <img 
+          [src]="bank.name === 'HSBC Viet Nam Bank' ? 
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/HSBC_logo_%282018%29.svg/2560px-HSBC_logo_%282018%29.svg.png' : 
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Standard_Chartered_%282021%29.svg/1200px-Standard_Chartered_%282021%29.svg.png'"
+          [alt]="bank.name + ' logo'"
+          class="w-full h-full object-contain"
+        >
+      </div>
+      <div>
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">{{ bank.name }}</h2>
+        <div class="text-white/90">
+          <p class="text-sm opacity-80">Account Number</p>
+          <p class="text-xl font-semibold">{{ bank.accountNumber }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Content -->
+  <div class="p-6 flex-grow space-y-6">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Account Holder</label>
+      <p class="text-lg font-semibold">{{ bank.accountName }}</p>
+    </div>
+    
+    <div>
+      <label for="amount" class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+      <div class="relative">
+        <input
+          type="number"
+          [(ngModel)]="amount"
+          class="input-glass pr-16"
+          placeholder="Enter amount"
+        >
+        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+          <span class="text-gray-500 font-medium">VND</span>
+        </div>
+      </div>
+    </div>
+    
+    <button
+      (click)="generateQRCode()"
+      class="w-full btn-primary py-4 text-lg font-semibold rounded-2xl"
+    >
+      Generate QR Code
+    </button>
+    
+    <div *ngIf="qrCodeUrl" class="flex flex-col items-center space-y-4 animate-fade-in">
+      <div class="glass rounded-3xl p-6">
+        <img [src]="qrCodeUrl" alt="QR Code" class="w-48 h-48 rounded-2xl">
+      </div>
+      <p class="text-center text-gray-600 font-medium">Scan QR code to make payment</p>
+    </div>
+  </div>
+</div>

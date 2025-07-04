@@ -1,0 +1,31 @@
+<div class="h-screen flex items-center justify-center px-4">
+  <div class="max-w-6xl mx-auto text-center">
+    <div class="animate-fade-in">
+      <div class="mb-8">
+        <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-red-500 to-red-700 flex items-center justify-center float shadow-2xl">
+          <span class="text-white font-bold text-4xl">T</span>
+        </div>
+        <h1 class="text-6xl md:text-8xl font-bold gradient-text mb-4 text-shadow animate-slide-up stagger-1">
+          Tai Tran Viet
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-600 mb-2 animate-slide-up stagger-2" id="greeting">
+          {{ greeting }}
+        </p>
+        <p class="text-lg text-gray-500 mb-8 animate-slide-up stagger-3" id="current-time">
+          {{ currentTime }}
+        </p>
+      </div>
+      
+      <!-- Add Contact Button -->
+      <div class="flex justify-center animate-slide-up stagger-4">
+        <button (click)="addToContacts()" 
+                class="px-8 py-4 text-lg font-semibold rounded-2xl bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 ripple">
+          <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Add Contact
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
