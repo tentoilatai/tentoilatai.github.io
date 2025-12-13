@@ -1,0 +1,9 @@
+{
+  "name": "tai-tran-portfolio",
+  "version": "3.0.0",
+  "description": "Modern Liquid Glass portfolio website with auto dark mode",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Build complete'"
+  }
+}
